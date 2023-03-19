@@ -5,6 +5,7 @@
 
 int main()
 {
+	std::string greeting = "Hello World!";
 	std::cout << "Your name:" << std::endl;
     std::string name;
 	std::cin >> name;
