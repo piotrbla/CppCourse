@@ -12,11 +12,12 @@ int main()
 	const std::string greeting = "Hello, " + name + "!";
 
     const int pad = 1;
-	int rows = pad * 2 + 3;
+	int vertical_padding = pad;
     if (greeting.size() > 15)
 	{
-		rows = pad * 2 + 5;
+		vertical_padding = pad * 2;
 	}
+	int rows = pad * 2 + vertical_padding * 2 + 1;
 	const int cols = greeting.size() + pad * 2 + 2;
 
 	std::cout << std::endl;
@@ -27,7 +28,7 @@ int main()
 
 		while (c != cols)
 		{
-			if (r == pad + 1 && c == pad + 1)
+			if (r == pad + vertical_padding && c == pad + vertical_padding)
 			{
 				std::cout << greeting;
 				c += greeting.size();
