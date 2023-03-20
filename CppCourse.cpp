@@ -10,17 +10,40 @@ int main()
     std::cin >> name;
     
 	const std::string greeting = "Hello, " + name + "!";
-	const std::string spaces(greeting.size(), ' ');
-	const std::string second = "* " + spaces + " *";
-	const std::string first(second.size(), '*');
-	
+
+    const int pad = 1;
+	int rows = pad * 2 + 3;
+    if (greeting.size() > 15)
+	{
+		rows = pad * 2 + 5;
+	}
+	const int cols = greeting.size() + pad * 2 + 2;
+
 	std::cout << std::endl;
-	std::cout << first << std::endl;
-	std::cout << second << std::endl;
-	std::cout << "* " << greeting << " *" << std::endl;
-	std::cout << second << std::endl;
-	std::cout << first << std::endl;
-	
+	int r = 0; 
+	while(r != rows)
+	{
+		int c = 0;
+
+		while (c != cols)
+		{
+			if (r == pad + 1 && c == pad + 1)
+			{
+				std::cout << greeting;
+				c += greeting.size();
+			}
+			else
+			{
+				if (r == 0 || r == rows - 1 || c == 0 || c == cols - 1)
+					std::cout << "*";
+				else
+					std::cout << " ";
+				++c;
+			}
+		}
+		r++;
+		std::cout << std::endl;
+	}
 	return 0;
 }
 
