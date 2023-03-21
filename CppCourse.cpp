@@ -1,52 +1,41 @@
 /* CppCourse.cpp : This file contains the 'main' function.Program execution begins and ends there. */
 
+#include <iomanip>//setprecision
 #include <iostream>
+#include <ios> //streamsize
 #include <string>
 
 using std::cout;
 using std::string;
 using std::cin;
+
 int main()
 {
-    cout << "Your name:" << std::endl;
-    std::string name;
+    cout << "Your name:\n";
+    string name;
     cin >> name;
+	cout << "Hello, " + name + "!";
     
-	const std::string greeting = "Hello, " + name + "!";
-
-    const int pad = 1;
-	int vertical_padding = pad;
-    if (greeting.size() > 15)
-	{
-		vertical_padding = pad * 2;
-	}
-	const int rows = pad * 2 + vertical_padding * 2 + 1;
-	const int cols = greeting.size() + pad * 2 + 3;
-
-	std::cout << std::endl;
+	cout << "Your midterm and final exam grades:\n";
+	double midterm, final;
+	cin >> midterm >> final;
+	cout << "Please enter all your homework grades, "
+		"followed by end-of-file: \n";
+    
+	int count = 0;
+	double sum = 0;
 	
-	for(int r = 0 ; r != rows ; ++r)
-	{
-		int c = 0;
-
-		while (c != cols)
-		{
-			if (r == pad + vertical_padding && c == pad + vertical_padding)
-			{
-				std::cout << greeting;
-				c += greeting.size();
-			}
-			else
-			{
-				if (r == 0 || r == rows - 1 || c == 0 || c == cols-1)
-					std::cout << "*";
-				else
-					std::cout << " ";
-				++c;
-			}
-		}
-		std::cout << std::endl;
+	double grade;
+	
+	while (cin >> grade) {
+		++count;
+		sum += grade;
 	}
+	
+	std::streamsize prec = cout.precision();
+	cout << "Your final grade is " << std::setprecision(3)
+		<< 0.2 * midterm + 0.4 * final + 0.4 * sum / count
+		<< std::setprecision(prec) << std::endl;
 	return 0;
 }
 
