@@ -3,11 +3,14 @@
 #include <iostream>
 #include <string>
 
+using std::cout;
+using std::string;
+using std::cin;
 int main()
 {
-    std::cout << "Your name:" << std::endl;
+    cout << "Your name:" << std::endl;
     std::string name;
-    std::cin >> name;
+    cin >> name;
     
 	const std::string greeting = "Hello, " + name + "!";
 
@@ -17,12 +20,12 @@ int main()
 	{
 		vertical_padding = pad * 2;
 	}
-	int rows = pad * 2 + vertical_padding * 2 + 1;
-	const int cols = greeting.size() + pad * 2 + 2;
+	const int rows = pad * 2 + vertical_padding * 2 + 1;
+	const int cols = greeting.size() + pad * 2 + 3;
 
 	std::cout << std::endl;
-	int r = 0; 
-	while(r != rows)
+	
+	for(int r = 0 ; r != rows ; ++r)
 	{
 		int c = 0;
 
@@ -35,14 +38,13 @@ int main()
 			}
 			else
 			{
-				if (r == 0 || r == rows - 1 || c == 0 || c == cols - 1)
+				if (r == 0 || r == rows - 1 || c == 0 || c == cols-1)
 					std::cout << "*";
 				else
 					std::cout << " ";
 				++c;
 			}
 		}
-		r++;
 		std::cout << std::endl;
 	}
 	return 0;
