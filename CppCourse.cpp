@@ -1,11 +1,11 @@
 /* CppCourse.cpp : This file contains the 'main' function.Program execution begins and ends there. */
 
-#include <iomanip>//setprecision
-#include <iostream>
-#include <ios> //streamsize
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <iomanip>		//setprecision
+#include <iostream>		//cout, cin
+#include <ios>			//streamsize
+#include <string>		//string
+#include <vector>		//vector
+#include <algorithm>	//sort
 
 using std::string;
 using std::cin;
@@ -13,21 +13,22 @@ using std::endl;
 using std::streamsize;
 using std::cout;
 using std::setprecision;
-
-int main2()
+using std::vector;
+using std::sort;
+int main()
 {
 	cout << "Please enter all your homework grades, "
 		"followed by end-of-file: \n";
     
 	double sum = 0;
 	
-	std::vector<double> grades;
+	vector<double> grades;
 	double grade;
 	
 	while (cin >> grade) {
 		grades.push_back(grade);
 	}
-	typedef std::vector<double>::size_type vec_size;
+	typedef vector<double>::size_type vec_size;
 	vec_size size = grades.size();
 	if (size == 0) {
 		cout << endl << "You must enter your grades. "
@@ -35,10 +36,9 @@ int main2()
 		return 1;
 	}
 	
-	std::sort(grades.begin(), grades.end());
+	sort(grades.begin(), grades.end());
 	vec_size mid = size / 2;
-	double median;
-	median = size % 2 == 0 
+	double median = size % 2 == 0 
 		? (grades[mid] + grades[mid - 1]) / 2
 		: grades[mid];
 	streamsize prec = cout.precision();
