@@ -4,38 +4,46 @@
 #include <iostream>
 #include <ios> //streamsize
 #include <string>
+#include <vector>
+#include <algorithm>
 
-using std::cout;
 using std::string;
 using std::cin;
+using std::endl;
+using std::streamsize;
+using std::cout;
+using std::setprecision;
 
-int main()
+int main2()
 {
-    cout << "Your name:\n";
-    string name;
-    cin >> name;
-	cout << "Hello, " + name + "!";
-    
-	cout << "Your midterm and final exam grades:\n";
-	double midterm, final;
-	cin >> midterm >> final;
 	cout << "Please enter all your homework grades, "
 		"followed by end-of-file: \n";
     
-	int count = 0;
 	double sum = 0;
 	
+	std::vector<double> grades;
 	double grade;
 	
 	while (cin >> grade) {
-		++count;
-		sum += grade;
+		grades.push_back(grade);
+	}
+	typedef std::vector<double>::size_type vec_size;
+	vec_size size = grades.size();
+	if (size == 0) {
+		cout << endl << "You must enter your grades. "
+			"Please try again." << endl;
+		return 1;
 	}
 	
-	std::streamsize prec = cout.precision();
-	cout << "Your final grade is " << std::setprecision(3)
-		<< 0.2 * midterm + 0.4 * final + 0.4 * sum / count
-		<< std::setprecision(prec) << std::endl;
+	std::sort(grades.begin(), grades.end());
+	vec_size mid = size / 2;
+	double median;
+	median = size % 2 == 0 
+		? (grades[mid] + grades[mid - 1]) / 2
+		: grades[mid];
+	streamsize prec = cout.precision();
+	cout << "Your median grade is " << setprecision(3) 
+		<< median << setprecision(prec) << endl;
 	return 0;
 }
 
