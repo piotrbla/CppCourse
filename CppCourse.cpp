@@ -8,26 +8,56 @@
 #include <algorithm>	//sort
 
 using std::string;
-using std::cin;
 using std::endl;
 using std::streamsize;
 using std::cout;
 using std::setprecision;
 using std::vector;
 using std::sort;
+
+double grade(double midterm, double final, double homework)
+{
+	return 0.2 * midterm + 0.4 * final + 0.4 * homework;
+}
+
+int grade(int midterm, int final, int homework)
+{
+	return midterm + final + homework;
+}
+
+double grade(double midterm, double final, vector <double> homework)
+{
+	typedef vector<double>::size_type vec_size;
+	vec_size size = homework.size();
+	sort(homework.begin(), homework.end());
+	vec_size mid = size / 2;
+	double median = size % 2 == 0
+		? (homework[mid] + homework[mid - 1]) / 2
+		: homework[mid];
+	return 0.2 * midterm + 0.4 * final + 0.4 * median;
+}
+
+void grade_test()
+{
+	cout << "Test1 : " 
+		<< grade(0, 0, 0) << endl;
+	cout << "Test2 : " 
+		<< grade(4.5, 6.0, 7.0) << endl;
+	cout << "Test3 : " 
+		<< grade(4.9, 5.4, 4.53) << endl;
+}
+
+void tests()
+{
+	grade_test();
+}
+
 int main()
 {
-	cout << "Please enter all your homework grades, "
-		"followed by end-of-file: \n";
-    
-	double sum = 0;
-	
-	vector<double> grades;
-	double grade;
-	
-	while (cin >> grade) {
-		grades.push_back(grade);
-	}
+	tests(); return 0;
+	double final = 4.0;
+	double midterm = 3.0;
+	vector<double> grades = { 5.1, 3.2, 3.1, 4.1, 4.3, 5, 5, 4, 3, 4 };
 	typedef vector<double>::size_type vec_size;
 	vec_size size = grades.size();
 	if (size == 0) {
@@ -35,17 +65,16 @@ int main()
 			"Please try again." << endl;
 		return 1;
 	}
-	
-	sort(grades.begin(), grades.end());
-	vec_size mid = size / 2;
-	double median = size % 2 == 0 
-		? (grades[mid] + grades[mid - 1]) / 2
-		: grades[mid];
 	streamsize prec = cout.precision();
-	cout << "Your median grade is " << setprecision(3) 
-		<< median << setprecision(prec) << endl;
+	cout << "Your course grade is " << setprecision(3)
+		<< grade(midterm, final, grades)
+		<< setprecision(prec) << endl;
+
+	final = 5.0;
+	cout << "Your course grade is " << setprecision(3)
+		<< grade(midterm, final, grades)
+		<< setprecision(prec) << endl;
+
 	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
