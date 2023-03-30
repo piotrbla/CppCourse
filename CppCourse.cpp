@@ -25,26 +25,72 @@ int grade(int midterm, int final, int homework)
 	return midterm + final + homework;
 }
 
-double grade(double midterm, double final, vector <double> homework)
+double median(vector<double> vec)
+{
+	typedef vector<double>::size_type vec_sz;
+	vec_sz size = vec.size();
+	if (size == 0)
+		throw std::domain_error("median of an empty vector");
+	sort(vec.begin(), vec.end());
+	vec_sz mid = size / 2;
+	return size % 2 == 0 ? (vec[mid] + vec[mid - 1]) / 2 : vec[mid];
+}
+
+double grade(double midterm, double final, 
+	const vector <double> &homework)
 {
 	typedef vector<double>::size_type vec_size;
 	vec_size size = homework.size();
-	sort(homework.begin(), homework.end());
-	vec_size mid = size / 2;
-	double median = size % 2 == 0
-		? (homework[mid] + homework[mid - 1]) / 2
-		: homework[mid];
-	return 0.2 * midterm + 0.4 * final + 0.4 * median;
+	if (size == 0)
+		throw std::domain_error("Student has done no homework");
+	return 0.2 * midterm + 0.4 * final + 0.4 
+		* median(homework);
 }
 
+void good_precision_test()
+{
+	cout << setprecision(3);
+	vector<double> empty_grades = {};
+	try
+	{
+		streamsize prec = cout.precision();
+		double final_grade = grade(4.9, 5.4, empty_grades);
+		cout << "Test6 : " << setprecision(5)
+			<< final_grade << setprecision(prec) << endl;
+	}
+	catch (std::domain_error e)
+	{
+		cout << e.what() << endl;
+	}
+	cout << "Test7 : " << 4.951245 << endl;
+}
+
+void bad_precision_test()
+{
+	cout << setprecision(3);
+	vector<double> empty_grades = {};
+	try
+	{
+		streamsize prec = cout.precision();
+		cout << "Test4 : " << setprecision(5) 
+			<< grade(4.9, 5.4, empty_grades) <<  setprecision(prec) << endl;
+	}
+	catch (std::domain_error e)
+	{
+		cout << e.what() << endl;
+	}
+	cout << "Test5 : " << 4.951245 << endl;
+}
 void grade_test()
 {
-	cout << "Test1 : " 
-		<< grade(0, 0, 0) << endl;
-	cout << "Test2 : " 
-		<< grade(4.5, 6.0, 7.0) << endl;
-	cout << "Test3 : " 
-		<< grade(4.9, 5.4, 4.53) << endl;
+	//cout << "Test1 : " 
+	//	<< grade(0, 0, 0) << endl;
+	//cout << "Test2 : " 
+	//	<< grade(4.5, 6.0, 7.0) << endl;
+	//cout << "Test3 : " 
+	//	<< grade(4.9, 5.4, 4.53) << endl;
+	bad_precision_test();
+	good_precision_test();
 }
 
 void tests()
