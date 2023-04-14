@@ -130,7 +130,11 @@
   <ItemGroup>
     <ClCompile Include="CppCourse.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
+    <ClCompile Include="TimeIt.cpp" />
     <ClCompile Include="VectorTestcpp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="hw.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
