@@ -13,19 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\other">
+      <UniqueIdentifier>{0c8469bd-db69-467b-8391-ac3cd8a2c1c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCourse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PrecisionTest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\other</Filter>
     </ClCompile>
     <ClCompile Include="VectorTestcpp.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\other</Filter>
     </ClCompile>
     <ClCompile Include="TimeIt.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
