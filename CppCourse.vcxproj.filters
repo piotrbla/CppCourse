@@ -36,6 +36,12 @@
     <ClCompile Include="grade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="student_infocpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="hw.txt">
@@ -47,6 +53,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="grade.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="student_info.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

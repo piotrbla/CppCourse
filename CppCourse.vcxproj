@@ -132,6 +132,8 @@
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="median.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
+    <ClCompile Include="tests.cpp" />
+    <ClCompile Include="student_infocpp.cpp" />
     <ClCompile Include="TimeIt.cpp" />
     <ClCompile Include="VectorTestcpp.cpp" />
   </ItemGroup>
@@ -141,6 +143,8 @@
   <ItemGroup>
     <ClInclude Include="grade.h" />
     <ClInclude Include="median.h" />
+    <ClInclude Include="student_info.h" />
+    <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
