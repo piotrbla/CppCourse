@@ -129,12 +129,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CppCourse.cpp" />
+    <ClCompile Include="grade.cpp" />
+    <ClCompile Include="median.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
     <ClCompile Include="TimeIt.cpp" />
     <ClCompile Include="VectorTestcpp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="hw.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="grade.h" />
+    <ClInclude Include="median.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,6 +7,8 @@
 #include <vector>		//vector
 #include <algorithm>	//sort
 #include <fstream>
+#include "median.h"
+#include "grade.h"
 
 using std::string;
 using std::endl;
@@ -15,38 +17,6 @@ using std::cout;
 using std::setprecision;
 using std::vector;
 using std::sort;
-
-double grade(double midterm, double final, double homework)
-{
-	return 0.2 * midterm + 0.4 * final + 0.4 * homework;
-}
-
-int grade(int midterm, int final, int homework)
-{
-	return midterm + final + homework;
-}
-
-double median(vector<double> vec)
-{
-	typedef vector<double>::size_type vec_sz;
-	vec_sz size = vec.size();
-	if (size == 0)
-		throw std::domain_error("median of an empty vector");
-	sort(vec.begin(), vec.end());
-	vec_sz mid = size / 2;
-	return size % 2 == 0 ? (vec[mid] + vec[mid - 1]) / 2 : vec[mid];
-}
-
-double grade(double midterm, double final, 
-	const vector <double> &homework)
-{
-	typedef vector<double>::size_type vec_size;
-	vec_size size = homework.size();
-	if (size == 0)
-		throw std::domain_error("Student has done no homework");
-	return 0.2 * midterm + 0.4 * final + 0.4 
-		* median(homework);
-}
 
 void good_precision_test()
 {
