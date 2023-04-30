@@ -220,7 +220,6 @@ void tests()
 	find_fail_test_1();
 	//find_fail_test_2();
 	//find_fail_test_3();
-	//find_fail_test_4();
 
 	//one_person_grade_tests();
 	//read_hw_test();
