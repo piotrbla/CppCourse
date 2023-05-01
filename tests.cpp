@@ -184,7 +184,8 @@ vector<Student_info> extract_fails_iter(vector<Student_info>& students)
 	return fail;
 }
 
-void print_all_students_with_clasification(vector<Student_info>& passed, vector<Student_info>& failed)
+void print_all_students_with_clasification(const vector<Student_info>& passed, 
+	const vector<Student_info>& failed)
 {
 	cout << "Passed students:" << endl;
 	for (const auto& student : passed)
