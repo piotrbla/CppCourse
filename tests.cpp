@@ -3,6 +3,7 @@
 #include <ios>			//streamsize
 #include <string>		//string
 #include <vector>		//vector
+#include <list>			//list
 #include <algorithm>	//sort
 #include <fstream>
 #include "median.h"
@@ -15,6 +16,7 @@ using std::streamsize;
 using std::cout;
 using std::setprecision;
 using std::vector;
+//using std::list;
 using std::sort;
 
 void good_precision_test()
@@ -152,7 +154,6 @@ vector<Student_info> extract_fails_erase(vector<Student_info>& students)
 {
 	vector<Student_info> fail;
 	vector<Student_info>::size_type i = 0;
-	//vector<Student_info>::size_type size_bad = students.size();
 	while (i != students.size())
 	{
 		if (grade_fail(students[i]))
@@ -170,21 +171,38 @@ vector<Student_info> extract_fails_iter(vector<Student_info>& students)
 {
 	vector<Student_info> fail;
 	vector<Student_info>::size_type i = 0;
-	vector<Student_info>::iterator iter = students.begin();
-	while (iter != students.end())
+	vector<Student_info>::const_iterator it = students.begin();
+	while (it != students.end())
 	{
-		if (grade_fail(*iter))
+		if (grade_fail(*it))
 		{
-			fail.push_back(*iter);
-			iter = students.erase(iter);
+			fail.push_back(*it);
+			it = students.erase(it);
 		}
 		else
-			++iter;
+			++it;
 	}
 	return fail;
 }
 
-void print_all_students_with_clasification(const vector<Student_info>& passed, 
+std::list <Student_info> extract_fails_iter(std::list<Student_info>& students)
+{
+	std::list<Student_info> fail;
+	std::list<Student_info>::const_iterator it = students.begin();
+	while (it != students.end())
+	{
+		if (grade_fail(*it))
+		{
+			fail.push_back(*it);
+			it = students.erase(it);
+		}
+		else
+			++it;
+	}
+	return fail;
+}
+
+void print_all_students_with_clasification(const vector<Student_info>& passed,
 	const vector<Student_info>& failed)
 {
 	cout << "Passed students:" << endl;
@@ -193,7 +211,23 @@ void print_all_students_with_clasification(const vector<Student_info>& passed,
 	cout << "Failed students:" << endl;
 	for (const auto& student : failed)
 		cout << student.name << endl;
+	for (vector<Student_info>::const_iterator it = failed.begin(); it != failed.end(); ++it)
+		cout << it->name << " " << it->final << endl;
 }
+
+void print_all_students_with_clasification(const std::list<Student_info>& passed,
+	const std::list<Student_info>& failed)
+{
+	cout << "Passed students:" << endl;
+	for (const auto& student : passed)
+		cout << student.name << endl;
+	cout << "Failed students:" << endl;
+	for (const auto& student : failed)
+		cout << student.name << endl;
+	for (std::list<Student_info>::const_iterator it = failed.begin(); it != failed.end(); ++it)
+		cout << it->name << " " << it->final << endl;
+}
+
 
 void find_fail_test_1()
 {
@@ -216,11 +250,86 @@ void find_fail_test_3()
 	print_all_students_with_clasification(students, fail);
 }
 
+void find_fail_test_list()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students;
+	std::copy(students_vector.begin(), students_vector.end(), std::back_inserter(students));
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+void find_fail_test_list_1()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students;
+	std::copy(
+		students_vector.begin(), 
+		students_vector.end(), 
+		std::back_inserter(students)
+	);
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+void find_fail_test_list_2()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students;
+	students.insert(
+		students.begin(),
+		students_vector.begin(),
+		students_vector.end()
+	);
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+void find_fail_test_list_3()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students(
+		students_vector.begin(),
+		students_vector.end()
+	);
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+void find_fail_test_list_4()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students;
+	students.assign(
+		students_vector.begin(),
+		students_vector.end()
+	);
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+void find_fail_test_list_5()
+{
+	vector<Student_info> students_vector = read_students();
+	std::list<Student_info> students;
+	for (const auto& student : students_vector)
+		students.push_back(student);
+	std::list<Student_info> fail = extract_fails_iter(students);
+	print_all_students_with_clasification(students, fail);
+}
+
+
 void tests()
 {
-	find_fail_test_1();
+	//find_fail_test_1();
 	//find_fail_test_2();
 	//find_fail_test_3();
+	//find_fail_test_list();
+	find_fail_test_list_1();
+	find_fail_test_list_2();
+	find_fail_test_list_3();
+	find_fail_test_list_4();
+	//find_fail_test_list_5();
 
 	//one_person_grade_tests();
 	//read_hw_test();
