@@ -15,13 +15,13 @@ void print_vector_with_index(const vector<string>& v)
 	vec_size size = v.size();
 	for (vec_size i = 0; i < size; ++i)
 	{
-		cout <<"[" << (i < 10 ? "" : " ") << i << "] = " << v[i] << endl;
+		cout <<"[" << (i < 10 ? " " : "") << i << "] = " << v[i] << endl;
 	}
 }
 
 void testString1()
 {
-	string s = "Hello, world!";
+	string s = "Hello, world!Hello, world!Hello, world!";
 	cout << s << endl;
 	cout << s << " size = " << s.size() << endl;
 	cout << s << " length = " << s.length() << endl;
@@ -123,9 +123,9 @@ void testString4()
 vector <string> vcat(const vector <string>& top, const vector <string>& bottom)
 {
 	vector <string> ret = top;
-	for (auto it = bottom.begin(); it != bottom.end(); ++it)
-		ret.push_back(*it);
-	//ret.insert(ret.end(), bottom.begin(), bottom.end());
+	//for (auto it = bottom.begin(); it != bottom.end(); ++it)
+	//	ret.push_back(*it);
+	ret.insert(ret.end(), bottom.begin(), bottom.end());
 	return ret;
 }
 
@@ -167,7 +167,7 @@ vector <string> hcat(const vector <string>& left, const vector <string>& right)
 
 void testString6()
 {
-	string sn = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+	string sn = "Lorem ipsum dolor sit. ";
 	vector <string> vn = split(sn);
 	print_vector_with_index(vn);
 	cout << "width(vn) = " << width(vn) << endl;
@@ -180,14 +180,38 @@ void testString6()
 	print_vector_with_index(horizontal_cat);
 }
 
+void testString7()
+{
+	string s;
+	getline(std::cin, s);
+	vector <string> vn = split(s);
+	print_vector_with_index(vn);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void testsString()
 {
-	testString1();
+	//testString1();
 	//testString2();
 	//testString3();
 	//testString4();
 	//testString5();
 	//testString6();
-
+	testString7();
 }

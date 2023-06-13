@@ -45,6 +45,9 @@
     <ClCompile Include="testsString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testsAlgo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="hw.txt">
@@ -65,6 +68,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="testsString.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testsAlgo.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
