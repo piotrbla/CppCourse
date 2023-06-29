@@ -325,9 +325,9 @@ void tests()
 	//find_fail_test_2();
 	//find_fail_test_3();
 	//find_fail_test_list();
-	find_fail_test_list_1();
-	find_fail_test_list_2();
-	find_fail_test_list_3();
+	//find_fail_test_list_1();
+	//find_fail_test_list_2();
+	//find_fail_test_list_3();
 	find_fail_test_list_4();
 	//find_fail_test_list_5();
 

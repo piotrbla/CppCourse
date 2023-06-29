@@ -22,7 +22,7 @@ using std::vector;
 
 int main()
 {
-	tests_algo(); return 0;
+	tests(); return 0;
 
 	double final = 4.0;
 	double midterm = 3.0;
