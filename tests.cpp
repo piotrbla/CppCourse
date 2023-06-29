@@ -7,6 +7,7 @@
 #include <algorithm>	//sort
 #include <chrono>		//chrono	
 #include <numeric>		//accumulate
+
 #include <fstream>
 #include "median.h"
 #include "grade.h"
@@ -90,6 +91,11 @@ string::size_type get_longest_name_length(const vector<Student_info>& students)
 	return longest_name_length;
 }
 
+uint64_t get_time_count()
+{
+	using namespace std::chrono;
+	return duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
+}
 
 void read_hw_test()
 {
@@ -249,8 +255,11 @@ void find_fail_test_2()
 void find_fail_test_3()
 {
 	vector<Student_info> students = read_students();
+	uint64_t start = get_time_count();	
 	vector<Student_info> fail = extract_fails_iter(students);
-	print_all_students_with_clasification(students, fail);
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " vector basic" << endl;
+	//print_all_students_with_clasification(students, fail);
 }
 
 void find_fail_test_list()
@@ -301,31 +310,29 @@ void find_fail_test_list_3()
 
 void find_fail_test_list_4()
 {
-	using namespace std::chrono;
 	vector<Student_info> students_vector = read_students();
 	std::list<Student_info> students;
 	students.assign(
 		students_vector.begin(),
 		students_vector.end()
 	);
-	uint64_t start = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
+	uint64_t start = get_time_count();
 	std::list<Student_info> fail = extract_fails_iter(students);
-	uint64_t end = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
-	cout << "Time: " << end - start << endl;
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " list 1" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
 void find_fail_test_list_5()
 {
-	using namespace std::chrono;
 	vector<Student_info> students_vector = read_students();
 	std::list<Student_info> students;
 	for (const auto& student : students_vector)
 		students.push_back(student);
-	uint64_t start = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
+	uint64_t start = get_time_count();
 	std::list<Student_info> fail = extract_fails_iter(students);
-	uint64_t end = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
-	cout << "Time: " << end - start << endl;
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " list 2" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -443,20 +450,118 @@ void analysis_test()
 
 }
 
+bool pgrade(const Student_info& s)
+{
+	return !grade_fail(s);
+}
+
+std::vector <Student_info> extract_fails_eraser(std::vector<Student_info>& students)
+{
+	vector<Student_info> fail;
+	std::remove_copy_if(students.begin(), students.end(),
+		back_inserter(fail), pgrade);
+	students.erase(
+		remove_if(students.begin(), students.end(), grade_fail), 
+		students.end());
+	return fail;
+}
+
+
+void find_fail_test_new_1()
+{
+	vector<Student_info> students = read_students();
+	uint64_t start = get_time_count();
+	vector<Student_info> fail = extract_fails_eraser(students);
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " eraser" << endl;
+	//print_all_students_with_clasification(students, fail);
+}
+
+std::vector <Student_info> extract_fails_partition(std::vector<Student_info>& students)
+{
+	vector<Student_info>::iterator iter =
+		std::stable_partition(students.begin(), students.end(), pgrade);
+	vector<Student_info> fail(iter, students.end());
+	students.erase(
+		iter,
+		students.end());
+	return fail;
+}
+
+void find_fail_test_new_2()
+{
+	vector<Student_info> students = read_students();
+	uint64_t start = get_time_count();
+	std::vector<Student_info> fail = extract_fails_partition(students);
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " partition" << endl;
+	//print_all_students_with_clasification(students, fail);
+}
+
+bool one_function_grade(const Student_info& s)
+{
+	return grade(s) >= 3.0;
+}
+
+std::vector <Student_info> extract_fails_partition_predicate(std::vector<Student_info>& students)
+{
+	vector<Student_info>::iterator iter =
+		std::stable_partition(students.begin(), students.end(), one_function_grade);
+	vector<Student_info> fail(iter, students.end());
+	students.erase(
+		iter,
+		students.end());
+	return fail;
+}
+void find_fail_test_new_3()
+{
+	vector<Student_info> students = read_students();
+	uint64_t start = get_time_count();
+	std::vector<Student_info> fail = extract_fails_partition_predicate(students);
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " predicate" << endl;;
+	//print_all_students_with_clasification(students, fail);
+}
+
+std::vector <Student_info> extract_fails_partition_no_fun_predicate(std::vector<Student_info>& students)
+{
+	vector<Student_info>::iterator iter =
+		std::stable_partition(students.begin(), students.end(), [](Student_info& n) {return grade(n) >= 3.0; });
+	vector<Student_info> fail(iter, students.end());
+	students.erase(
+		iter,
+		students.end());
+	return fail;
+}
+void find_fail_test_new_4()
+{
+	vector<Student_info> students = read_students();
+	uint64_t start = get_time_count();
+	std::vector<Student_info> fail = extract_fails_partition_no_fun_predicate(students);
+	uint64_t end = get_time_count();
+	cout << "Time: " << end - start << " no_fun_predicate" << endl;
+	//print_all_students_with_clasification(students, fail);
+}
+
 void tests()
 {
 	//find_fail_test_1();
 	//find_fail_test_2();
-	//find_fail_test_3();
+	find_fail_test_3();//
 	//find_fail_test_list();
 	//find_fail_test_list_1();
 	//find_fail_test_list_2();
 	//find_fail_test_list_3();
-	//find_fail_test_list_4();
-	//find_fail_test_list_5();
+	find_fail_test_list_4();//
+	find_fail_test_list_5();//
 	//find_did_all_hw_test();
-	analysis_test();
-	
+	//analysis_test();
+	find_fail_test_new_1();
+	find_fail_test_new_2();
+	find_fail_test_new_3();
+	find_fail_test_new_4();
+
+
 	//one_person_grade_tests();
 	//read_hw_test();
 }
