@@ -5,10 +5,12 @@
 #include <vector>		//vector
 #include <list>			//list
 #include <algorithm>	//sort
+#include <chrono>		//chrono	
 #include <fstream>
 #include "median.h"
 #include "grade.h"
 #include "student_info.h"
+#include <stdexcept>
 
 using std::string;
 using std::endl;
@@ -298,26 +300,111 @@ void find_fail_test_list_3()
 
 void find_fail_test_list_4()
 {
+	using namespace std::chrono;
 	vector<Student_info> students_vector = read_students();
 	std::list<Student_info> students;
 	students.assign(
 		students_vector.begin(),
 		students_vector.end()
 	);
+	uint64_t start = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 	std::list<Student_info> fail = extract_fails_iter(students);
-	print_all_students_with_clasification(students, fail);
+	uint64_t end = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
+	cout << "Time: " << end - start << endl;
+	//print_all_students_with_clasification(students, fail);
 }
 
 void find_fail_test_list_5()
 {
+	using namespace std::chrono;
 	vector<Student_info> students_vector = read_students();
 	std::list<Student_info> students;
 	for (const auto& student : students_vector)
 		students.push_back(student);
+	uint64_t start = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 	std::list<Student_info> fail = extract_fails_iter(students);
-	print_all_students_with_clasification(students, fail);
+	uint64_t end = duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
+	cout << "Time: " << end - start << endl;
+	//print_all_students_with_clasification(students, fail);
 }
 
+void find_did_all_hw_test()
+{
+	vector<Student_info> students_vector = read_students();
+	vector<Student_info> did, didnt;
+	std::list<Student_info> students;
+	for (const auto& student : students_vector)
+	{
+		if (did_all_hw(student))
+			did.push_back(student);
+		else
+			didnt.push_back(student);
+	}
+	if (did.empty())
+	{
+		cout << "No student did all homework!" << endl;
+		return;
+	}
+	if (didnt.empty())
+	{
+		cout << "Every student did all homework!" << endl;
+		return;
+	}
+}
+
+double grade_aux(const Student_info& s)
+{
+	try
+	{
+		return grade(s);
+	}
+	catch (std::domain_error)
+	{
+		return grade(s.midterm, s.final, 0.0);
+	}
+}
+double median_analysis(const vector<Student_info>& students)
+{
+	vector<double> grades;
+	transform(students.begin(), students.end(), back_inserter(grades), grade_aux);
+	return median(grades);
+}
+
+void write_analysis(std::ostream& out, const string& name, 
+	double analysis(const vector<Student_info>&),
+	const vector<Student_info>& did,
+	const vector<Student_info>& didnt)
+{
+	out << name << ": median (did) = " << analysis(did)
+		<< "  median (didnt) = " << analysis(didnt)
+		<< endl;
+}
+
+void analysis_test()
+{
+	vector<Student_info> students_vector = read_students();
+	vector<Student_info> did, didnt;
+	std::list<Student_info> students;
+	for (const auto& student : students_vector)
+	{
+		if (did_all_hw(student))
+			did.push_back(student);
+		else
+			didnt.push_back(student);
+	}
+	if (did.empty())
+	{
+		cout << "No student did all homework!" << endl;
+		return;
+	}
+	if (didnt.empty())
+	{
+		cout << "Every student did all homework!" << endl;
+		return;
+	}
+	write_analysis(cout, "median", median_analysis, did, didnt);
+
+}
 
 void tests()
 {
@@ -328,8 +415,10 @@ void tests()
 	//find_fail_test_list_1();
 	//find_fail_test_list_2();
 	//find_fail_test_list_3();
-	find_fail_test_list_4();
+	//find_fail_test_list_4();
 	//find_fail_test_list_5();
+	//find_did_all_hw_test();
+	analysis_test();
 
 	//one_person_grade_tests();
 	//read_hw_test();

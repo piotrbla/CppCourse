@@ -133,7 +133,7 @@
     <ClCompile Include="median.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
     <ClCompile Include="tests.cpp" />
-    <ClCompile Include="student_infocpp.cpp" />
+    <ClCompile Include="student_info.cpp" />
     <ClCompile Include="testsAlgo.cpp" />
     <ClCompile Include="testsString.cpp" />
     <ClCompile Include="TimeIt.cpp" />

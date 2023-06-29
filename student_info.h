@@ -16,5 +16,6 @@ std::istream& read_hw(std::istream& in, std::vector<double>& hw);
 std::istream& read_student(std::istream& input_stream, Student_info& s);
 double grade(const Student_info& s);
 bool compare_students(const Student_info& x, const Student_info& y);
+bool did_all_hw(const Student_info& s);
 
 #endif //COURSE_STUDENT_INFO_H

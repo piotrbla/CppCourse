@@ -36,7 +36,7 @@
     <ClCompile Include="grade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="student_infocpp.cpp">
+    <ClCompile Include="student_info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests.cpp">
