@@ -16,10 +16,10 @@ using std::find_if;
 vector <string> vertical_cat(const vector <string>& top, const vector <string>& bottom)
 {
 	vector <string> ret = top;
-	for (auto it = bottom.begin(); it != bottom.end(); ++it)
-		ret.push_back(*it);
+	//for (auto it = bottom.begin(); it != bottom.end(); ++it)
+	//	ret.push_back(*it);
 	//ret.insert(ret.end(), bottom.begin(), bottom.end());
-	//copy(bottom.begin(), bottom.end(), back_inserter(ret));
+	copy(bottom.begin(), bottom.end(), back_inserter(ret));
 	return ret;
 }
 
@@ -63,7 +63,11 @@ void test_algo_2()
 
 bool is_palindrome(const string& s)
 {
-	return equal(s.begin(), s.end(), s.rbegin());
+	return equal(
+	 s.begin(), 
+	 s.end(), 
+	 s.rbegin()
+	);
 }
 
 void test_algo_3()
@@ -137,5 +141,6 @@ void tests_algo()
 	//test_algo_1();
 	//test_algo_2();
 	//test_algo_3();
-	test_algo_4();	
+	test_algo_4();
+	
 }
