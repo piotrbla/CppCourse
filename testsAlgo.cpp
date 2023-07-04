@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
+#include <numeric>
 
 using std::string;
 using std::vector;
@@ -136,11 +138,91 @@ void test_algo_4()
 
 }
 
+void test_algo_accumulate()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6};
+	int sum = std::accumulate(v.begin(), v.end(), 0);
+	cout << sum << endl;
+}
+
+void test_algo_find()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6};
+	auto it_found = std::find(
+		v.begin(), 
+		v.end(), 
+		5);
+	if (it_found != v.end())
+		cout << *it_found << endl;
+	else
+		cout << "not found" << endl;
+	auto it_not_found = std::find(
+		v.begin(), 
+		v.end(), 
+		15);
+	if (it_not_found != v.end())
+		cout << *it_not_found << endl;
+	else
+		cout << "not found" << endl;
+}
+
+void test_algo_find_if()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	auto it_found = std::find_if(
+		v.begin(),
+		v.end(),
+		[](int i) { 
+			return i % 2 == 0; 
+		});
+	
+	while(it_found != v.end())
+	{
+		cout << *it_found << endl;
+		it_found += 1;
+		it_found = std::find_if(
+			it_found,
+			v.end(),
+			[](int i) {
+				return i % 2 == 0;
+			});
+	}
+}
+void test_algo_search()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	vector <int> v2 = { 3, 4, 5 };
+	auto it_found = std::search(
+		v.begin(),
+		v.end(),
+		v2.begin(),
+		v2.end());
+	if (it_found != v.end())
+		cout << *it_found << endl;
+	else
+		cout << "not found" << endl;
+}
+
+void test_algo_copy()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	vector <int> v2(v.size());
+	std::copy(
+		v.begin(),
+		v.end(),
+		v2.begin());
+	for (auto i : v2)
+		cout << i << endl;
+}
+
 void tests_algo()
 {
 	//test_algo_1();
 	//test_algo_2();
 	//test_algo_3();
-	test_algo_4();
-	
+	//test_algo_4();
+	//test_algo_accumulate();
+	//test_algo_find();
+	//test_algo_find_if();
+	test_algo_search();
 }

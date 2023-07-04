@@ -258,7 +258,7 @@ void find_fail_test_3()
 	uint64_t start = get_time_count();	
 	vector<Student_info> fail = extract_fails_iter(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " vector basic" << endl;
+	cout << "Time   : " << end - start << " vector basic" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -319,7 +319,7 @@ void find_fail_test_list_4()
 	uint64_t start = get_time_count();
 	std::list<Student_info> fail = extract_fails_iter(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " list 1" << endl;
+	cout << "Time   : " << end - start << " list 1" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -332,7 +332,7 @@ void find_fail_test_list_5()
 	uint64_t start = get_time_count();
 	std::list<Student_info> fail = extract_fails_iter(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " list 2" << endl;
+	cout << "Time   : " << end - start << " list 2" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -371,6 +371,7 @@ double grade_aux(const Student_info& s)
 		return grade(s.midterm, s.final, 0.0);
 	}
 }
+
 double median_analysis(const vector<Student_info>& students)
 {
 	vector<double> grades;
@@ -473,7 +474,7 @@ void find_fail_test_new_1()
 	uint64_t start = get_time_count();
 	vector<Student_info> fail = extract_fails_eraser(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " eraser" << endl;
+	cout << "Time   : " << end - start << " eraser" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -494,7 +495,7 @@ void find_fail_test_new_2()
 	uint64_t start = get_time_count();
 	std::vector<Student_info> fail = extract_fails_partition(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " partition" << endl;
+	cout << "Time   : " << end - start << " partition" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -519,7 +520,7 @@ void find_fail_test_new_3()
 	uint64_t start = get_time_count();
 	std::vector<Student_info> fail = extract_fails_partition_predicate(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " predicate" << endl;;
+	cout << "Time   : " << end - start << " predicate" << endl;;
 	//print_all_students_with_clasification(students, fail);
 }
 
@@ -539,7 +540,7 @@ void find_fail_test_new_4()
 	uint64_t start = get_time_count();
 	std::vector<Student_info> fail = extract_fails_partition_no_fun_predicate(students);
 	uint64_t end = get_time_count();
-	cout << "Time: " << end - start << " no_fun_predicate" << endl;
+	cout << "Time   : " << end - start << " no_fun_predicate" << endl;
 	//print_all_students_with_clasification(students, fail);
 }
 
