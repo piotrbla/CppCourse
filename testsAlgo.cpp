@@ -215,14 +215,103 @@ void test_algo_copy()
 		cout << i << endl;
 }
 
+void test_algo_remove_copy()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	vector <int> v2(v.size());
+	std::remove_copy(
+		v.begin(),
+		v.end(),
+		v2.begin(),
+		3);
+	for (auto i : v2)
+		cout << i << endl;
+}
+
+void test_algo_remove_copy_if()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	vector <int> v2(v.size());
+	std::remove_copy_if(
+		v.begin(),
+		v.end(),
+		v2.begin(),
+		[](int i) { return i % 2 == 0; });
+	for (auto i : v2)
+		cout << i << endl;
+}
+
+void test_algo_remove_if()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	std::remove_if(
+		v.begin(),
+		v.end(),
+		[](int i) { return i % 2 == 0; });
+	for (auto i : v)
+		cout << i << endl;
+}
+
+void test_algo_remove()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	std::remove(
+		v.begin(),
+		v.end(),
+		3);
+	for (auto i : v)
+		cout << i << endl;
+}
+
+void test_algo_partition()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	auto it = std::partition(
+		v.begin(),
+		v.end(),
+		[](int i) { return i % 2 == 0; });
+	for (auto i : v)
+		cout << i << endl;
+	cout << "it: " << *it << endl;
+}
+
+void test_algo_stable_partition()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	auto it = std::stable_partition(
+		v.begin(),
+		v.end(),
+		[](int i) { return i % 2 == 0; });
+	for (auto i : v)
+		cout << i << endl;
+	cout << "it: " << *it << endl;
+}
+
 void tests_algo()
 {
 	//test_algo_1();
 	//test_algo_2();
 	//test_algo_3();
 	//test_algo_4();
+	// E01
 	//test_algo_accumulate();
+	// E02
 	//test_algo_find();
 	//test_algo_find_if();
-	test_algo_search();
+	//test_algo_search();
+	// E03
+	//test_algo_copy();
+	//test_algo_remove_copy();
+	//test_algo_remove_copy_if();
+	// E04
+	//test_algo_remove_if();
+	// E05
+	// test_algo_remove();
+	// E06
+	//test_algo_transform();
+	// E07
+	test_algo_partition();
+	test_algo_stable_partition();
+	
+	
 }
