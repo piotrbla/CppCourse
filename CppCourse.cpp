@@ -19,11 +19,8 @@ using std::cout;
 using std::setprecision;
 using std::vector;
 
-
-int main()
+void grades_test()
 {
-	tests_algo(); return 0;
-
 	double final = 4.0;
 	double midterm = 3.0;
 	vector<double> grades = { 5.1, 3.2, 3.1, 4.1, 4.3, 5, 5, 4, 3, 4 };
@@ -32,7 +29,7 @@ int main()
 	if (size == 0) {
 		cout << endl << "You must enter your grades. "
 			"Please try again." << endl;
-		return 1;
+		return;
 	}
 	streamsize prec = cout.precision();
 	cout << "Your course grade is " << setprecision(3)
@@ -43,7 +40,14 @@ int main()
 	cout << "Your course grade is " << setprecision(3)
 		<< grade(midterm, final, grades)
 		<< setprecision(prec) << endl;
+}
 
+int main()
+{
+	//grades_test(); return 0;
+	//tests_algo(); return 0;
+	//tests_string(); return 0;
+	//tests(); return 0;
 	return 0;
 }
 
