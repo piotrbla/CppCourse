@@ -133,9 +133,11 @@
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="median.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
+    <ClCompile Include="testsAssociative .cpp" />
     <ClCompile Include="tests.cpp" />
     <ClCompile Include="student_info.cpp" />
     <ClCompile Include="testsAlgo.cpp" />
+    <ClCompile Include="testsAssociative.cpp" />
     <ClCompile Include="testsString.cpp" />
     <ClCompile Include="TimeIt.cpp" />
     <ClCompile Include="VectorTestcpp.cpp" />
@@ -147,6 +149,7 @@
     <ClInclude Include="grade.h" />
     <ClInclude Include="median.h" />
     <ClInclude Include="student_info.h" />
+    <ClInclude Include="testsAssociative.h" />
     <ClInclude Include="tests.h" />
     <ClInclude Include="testsAlgo.h" />
     <ClInclude Include="testsString.h" />
