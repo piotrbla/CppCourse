@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <iterator>
 #include <numeric>
+#include <functional>
+#include <ranges>
 
 using std::string;
 using std::vector;
@@ -140,14 +142,20 @@ void test_algo_4()
 
 void test_algo_accumulate()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6};
-	int sum = std::accumulate(v.begin(), v.end(), 0);
+	vector <double> v = { 
+		1, 2, 3, 4, 5, 6
+	};
+	double sum = std::accumulate(
+		v.begin(), 
+		v.end(), 
+		0.1);
 	cout << sum << endl;
 }
 
 void test_algo_find()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6};
+	vector <int> v = 
+	{ 1, 15, 2, 3, 4, 5, 6};
 	auto it_found = std::find(
 		v.begin(), 
 		v.end(), 
@@ -157,13 +165,38 @@ void test_algo_find()
 	else
 		cout << "not found" << endl;
 	auto it_not_found = std::find(
-		v.begin(), 
+		it_found,
 		v.end(), 
 		15);
 	if (it_not_found != v.end())
 		cout << *it_not_found << endl;
 	else
 		cout << "not found" << endl;
+}
+
+bool predicate_pair(int i) {
+	return i % 2 == 0;
+}
+
+void test_algo_find_if_old()
+{
+	vector <int> v = { 1, 2, 3, 4, 5, 6 };
+	auto it_found = std::find_if(
+		v.begin(),
+		v.end(),
+		predicate_pair
+	);
+
+	while (it_found != v.end())
+	{
+		cout << *it_found << endl;
+		it_found += 1;
+		it_found = std::find_if(
+			it_found,
+			v.end(),
+			predicate_pair
+		);
+	}
 }
 
 void test_algo_find_if()
@@ -188,10 +221,11 @@ void test_algo_find_if()
 			});
 	}
 }
+
 void test_algo_search()
 {
 	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	vector <int> v2 = { 3, 4, 5 };
+	vector <int> v2 = { 4, 4, 5 };
 	auto it_found = std::search(
 		v.begin(),
 		v.end(),
@@ -206,85 +240,304 @@ void test_algo_search()
 void test_algo_copy()
 {
 	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	vector <int> v2(v.size());
+	vector <int> v_copy(v.size());
 	std::copy(
 		v.begin(),
 		v.end(),
-		v2.begin());
-	for (auto i : v2)
+		v_copy.begin());
+	v_copy[2] = 5;
+	for (auto i : v)
+		cout << i << endl;
+	cout << endl;
+	for (auto i : v_copy)
 		cout << i << endl;
 }
 
 void test_algo_remove_copy()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	vector <int> v2(v.size());
+	vector <int> v = { 1, 2, 3, 4, 3, 6 };
+	vector <int> v_copy(v.size());
+	v_copy[4] = 10;
 	std::remove_copy(
 		v.begin(),
 		v.end(),
-		v2.begin(),
+		v_copy.begin(),
 		3);
-	for (auto i : v2)
+	for (auto i : v_copy)
 		cout << i << endl;
+}
+
+bool accepted_char(char c)
+{
+	return (isdigit(c) ||
+		c == ',' ||
+		c == '{' ||
+		c == '}');
+}
+
+bool not_accepted_char(char c)
+{
+	return !accepted_char(c);
+}
+
+void test_algo_remove_copy_if_function()
+{
+	string s = "{ 1, A 2, 3, A 4, 5, A 6 }";
+	std::copy_if(
+		s.begin(),
+		s.end(),
+		std::ostream_iterator<char>(cout),
+		accepted_char);
 }
 
 void test_algo_remove_copy_if()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	vector <int> v2(v.size());
+	test_algo_remove_copy_if_function();
+	return;
+	string s = "{ 1, A 2, 3, A 4, 5, A 6 }";
 	std::remove_copy_if(
+		s.begin(),
+		s.end(),
+		
+		std::ostream_iterator<char>
+		(cout),
+		
+		[](char c)
+		{ return c == ' ' || c == 'A'; });
+}
+
+void test_algo_remove()
+{
+	vector <int> v = 
+	{ 1, 2, 3, 4, 5, 6 };
+	auto last = std::remove(
 		v.begin(),
 		v.end(),
-		v2.begin(),
-		[](int i) { return i % 2 == 0; });
-	for (auto i : v2)
+		3);
+	for (auto i : v)
 		cout << i << endl;
+	cout << endl;
+	for (auto it = v.begin(); it != v.end(); ++it)
+		cout << *it << endl;
+	cout << endl;
+	for (auto it = v.begin(); it != last; ++it)
+		cout << *it << endl;
+	cout << endl;
+	v.erase(last, v.end());
+	for (auto i : v)
+		cout << i << endl;
+	cout << endl;
 }
 
 void test_algo_remove_if()
 {
 	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	std::remove_if(
+	auto last = std::remove_if(
 		v.begin(),
 		v.end(),
 		[](int i) { return i % 2 == 0; });
 	for (auto i : v)
 		cout << i << endl;
+	cout << endl;
+	v.erase(last, v.end());
+	for (auto i : v)
+		cout << i << endl;
 }
 
-void test_algo_remove()
+void test_algo_transform()
 {
 	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	std::remove(
+	vector <int> v2(v.size());
+	std::transform(
 		v.begin(),
 		v.end(),
-		3);
-	for (auto i : v)
+		v2.begin(),
+		[](int i) { return i * 2; });
+	for (auto i : v2)
 		cout << i << endl;
 }
 
 void test_algo_partition()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	auto it = std::partition(
+	vector <int> v = 
+	{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+	auto part = std::partition(
 		v.begin(),
 		v.end(),
 		[](int i) { return i % 2 == 0; });
+	
 	for (auto i : v)
 		cout << i << endl;
-	cout << "it: " << *it << endl;
+	cout << "part: " << *part << endl;
+	
+	for (auto it = v.begin(); it != part; ++it)
+		cout << *it << endl;
+	cout << endl;
+	for (auto it = part; it != v.end(); ++it)
+		cout << *it << endl;
+
 }
 
 void test_algo_stable_partition()
 {
-	vector <int> v = { 1, 2, 3, 4, 5, 6 };
-	auto it = std::stable_partition(
+	vector <int> v =
+	{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+	auto part = std::stable_partition(
 		v.begin(),
 		v.end(),
 		[](int i) { return i % 2 == 0; });
+	
 	for (auto i : v)
 		cout << i << endl;
-	cout << "it: " << *it << endl;
+	cout << "part: " << *part << endl;
+	
+	for (auto it = v.begin(); 
+		it != part; ++it)
+		cout << *it << endl;
+	cout << endl;
+	for (auto it = part; it != v.end(); ++it)
+		cout << *it << endl;
+	
+}
+
+
+
+void test_algo_iota()
+{
+	vector <int> v(10);
+	std::iota(
+		v.begin(),
+		v.end(),
+		15);
+	for (auto i : v)
+		cout << i << endl;
+}
+
+void test_algo_fill()
+{
+	vector <int> v(10);
+	std::fill(
+		v.begin(),
+		v.end(),
+		15);
+	std::ranges::fill(v, 20);
+	for (auto i : v)
+		cout << i << endl;
+}
+
+void test_algo_ranges()
+{
+	vector <int> v =
+	{ 1, 5, 2, 3, 4, 5, 6 };
+	auto it_found = 
+		std::ranges::find(v, 5);
+	if (it_found != v.end())
+		cout << *it_found << endl;
+	else
+		cout << "not found" << endl;
+	auto it_not_found = 
+		std::ranges::find(
+		it_found,
+		v.end(),
+		5);
+	if (it_not_found != v.end())
+		cout << *it_not_found << endl;
+	else
+		cout << "not found" << endl;
+}
+
+
+void test_algo_min_max_element()
+{
+	vector <int> v =
+	{ 1, 5, 2, 3, 4, 5, 6 };
+	auto min = std::min_element(
+		v.begin(),
+		v.end());
+	auto max = std::max_element(
+		v.begin(),
+		v.end());
+	cout << *min << endl;
+	cout << *max << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+void test_algo_minmax_element()
+{
+	vector <int> v =
+	{ 1, 5, 2, 3, 4, 5, 6 };
+	std::pair<
+		vector<int>::iterator, 
+		vector<int>::iterator> p =
+		std::minmax_element(v.begin(), v.end());
+	cout << *p.first << endl;
+	cout << *p.second << endl;
+	
+	std::ranges::minmax_result<
+		vector<int>::iterator> result =
+		std::ranges::minmax_element(v);
+	cout << *result.min << endl;
+	cout << *result.max << endl;
+	
+	auto [mi, ma] = 
+		std::minmax_element(v.begin(), v.end());
+	cout << *mi << endl;
+	cout << *ma << endl;
+
+	auto [min, max] =
+		std::ranges::minmax_element(v);
+
+	cout << *min << endl;
+	cout << *max << endl;
+}
+
+void test_algo_all_of()
+{
+	vector <int> v1 =
+	{ 1, 5, 2, 3, 4, 5, 6 };
+	vector <int> v2 =
+	{ 2, 4, 6, 8, 10, 12 };
+	if (std::all_of(
+		v1.begin(),
+		v1.end(),
+		[](int i) { return i % 2 == 0; }))
+		cout << "all even" << endl;
+	else
+		cout << "not all even" << endl;
+	if (std::ranges::all_of(
+		v2,
+		[](int i) { return i % 2 == 0; }))
+		cout << "all even" << endl;
+	else
+		cout << "not all even" << endl;
+}
+
+void test_algo_any_of()
+{
+	vector <int> v1 =
+	{ 1, 5, 3, 3, 5, 5, 7 };
+	if (std::any_of(
+		v1.begin(),
+		v1.end(),
+		[](int i) { return i % 2 == 0; }))
+		cout << "any even" << endl;
+	else
+		cout << "not any even" << endl;
+	if (std::ranges::none_of(
+		v1,
+		[](int i) { return i % 2 == 0; }))
+		cout << "none even" << endl;
+	else
+		cout << "some even" << endl;
 }
 
 void tests_algo()
@@ -293,25 +546,24 @@ void tests_algo()
 	//test_algo_2();
 	//test_algo_3();
 	//test_algo_4();
-	// E01
-	//test_algo_accumulate();
-	// E02
-	//test_algo_find();
-	//test_algo_find_if();
-	//test_algo_search();
-	// E03
-	//test_algo_copy();
-	//test_algo_remove_copy();
-	//test_algo_remove_copy_if();
-	// E04
-	//test_algo_remove_if();
-	// E05
-	// test_algo_remove();
-	// E06
-	//test_algo_transform();
-	// E07
-	test_algo_partition();
-	test_algo_stable_partition();
-	
-	
+	//test_algo_accumulate(); // E01
+	//test_algo_find(); // E02
+	//test_algo_find_if(); // E03
+	//test_algo_search(); // E04
+	//test_algo_copy(); // E05
+	//test_algo_remove_copy(); // E06
+	//test_algo_remove_copy_if(); //E07
+	//test_algo_remove(); //E08 
+	//test_algo_remove_if(); // E09
+	//test_algo_transform(); // E10
+	//test_algo_partition(); 	// E11
+	//test_algo_stable_partition(); //E12
+	//test_algo_iota(); //E13
+	//test_algo_fill(); //E14
+	//test_algo_ranges(); //E15
+	//test_algo_min_max_element(); //E16
+	//test_algo_minmax_element(); //E17
+	//test_algo_all_of(); //E18
+	test_algo_any_of(); //E19
+
 }
