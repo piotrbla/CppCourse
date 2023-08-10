@@ -11,6 +11,7 @@
 #include "tests.h"
 #include "testsString.h"
 #include "testsAlgo.h"
+#include "testsAssociative.h"
 
 using std::string;
 using std::endl;
@@ -44,6 +45,7 @@ void grades_test()
 
 int main()
 {
+	tests_associative(); return 0;
 	//grades_test(); return 0;
 	//tests_algo(); return 0;
 	//tests_string(); return 0;
