@@ -540,6 +540,31 @@ void test_algo_any_of()
 		cout << "some even" << endl;
 }
 
+void test_algo_binary_search()
+{
+	vector <int> v1 =
+	{ 1, 5, 3, 3, 5, 5, 7 };
+	std::sort(v1.begin(), v1.end());
+	if (std::binary_search(
+		v1.begin(),
+		v1.end(),
+		3))
+		cout << "found" << endl;
+	else
+		cout << "not found" << endl;
+	if (std::ranges::binary_search(
+		v1,9))
+		cout << "found" << endl;
+	else
+		cout << "not found" << endl;
+}
+
+
+
+
+
+
+
 void tests_algo()
 {
 	//test_algo_1();
@@ -564,6 +589,7 @@ void tests_algo()
 	//test_algo_min_max_element(); //E16
 	//test_algo_minmax_element(); //E17
 	//test_algo_all_of(); //E18
-	test_algo_any_of(); //E19
+	//test_algo_any_of(); //E19
+	test_algo_binary_search(); //E20
 
 }

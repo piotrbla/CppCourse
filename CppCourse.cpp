@@ -45,9 +45,9 @@ void grades_test()
 
 int main()
 {
-	tests_associative(); return 0;
+	//tests_associative(); return 0;
 	//grades_test(); return 0;
-	//tests_algo(); return 0;
+	tests_algo(); return 0;
 	//tests_string(); return 0;
 	//tests(); return 0;
 	return 0;
