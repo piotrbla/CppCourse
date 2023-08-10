@@ -124,14 +124,15 @@ void test_map_word_count()
 		++counter[word];
 	}
 	cout << endl;
-	for (const auto& p : counter)
+	/*for (const auto& p : counter)
 	{
 		cout << p.first << " " << p.second << endl;
 	}
-	//for (map<string, int>::const_iterator it = counter.begin(); it != counter.end(); ++it)
-	//{
-	//	cout << it->first << " " << it->second << endl;
-	//}
+	*/
+	for (map<string, int>::const_iterator it = counter.begin(); it != counter.end(); ++it)
+	{
+		cout << it->first << " " << it->second << endl;
+	}
 	cout << endl << "size: " << counter.size() << endl;
 }
 
@@ -173,15 +174,15 @@ void test_map_word_find_ref()
 
 void test_map_word_find_ref_time()
 {
-	std::ifstream file("lorem.txt");
-	//std::ifstream file("loremBig.txt");
+	//std::ifstream file("lorem.txt");
+	std::ifstream file("loremBig.txt");
 	auto start = std::chrono::high_resolution_clock::now();
 	//map<string, vector<int>> xref = find_ref(file);
 	unordered_map<string, vector<int>> xref = find_ref_unordered(file);
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsed = end - start;
 	cout << endl;
-	/**/
+	/*
 	for (const auto& p : xref)
 	{
 		cout << std::setw(20) << p.first << " ";
@@ -192,7 +193,7 @@ void test_map_word_find_ref_time()
 		cout << endl;
 	}
 	cout << endl;
-	/**/
+	*/
 	cout << "Elapsed time: " << elapsed.count() << endl;
 }
 
