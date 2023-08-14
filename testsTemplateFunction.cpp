@@ -48,7 +48,8 @@ void test_template_function_old_cpp()
 template <class T>
 T demo_abs_template(T value)
 {
-	return value < 0 ? -value : value;
+	T result = value < 0 ? -value : value;
+	return result;
 }
 
 void test_template_function_new_cpp()
@@ -57,6 +58,11 @@ void test_template_function_new_cpp()
 	cout << demo_abs_template<double>(-3.1) << endl;
 	cout << demo_abs_template<int>(5) << endl;
 	cout << demo_abs_template<int>(-3) << endl;
+	cout << endl;
+	cout << demo_abs_template(6.1) << endl;
+	cout << demo_abs_template(-3.1) << endl;
+	cout << demo_abs_template(5.1) << endl;
+	cout << demo_abs_template(-3) << endl;
 	cout << endl;
 }
 
