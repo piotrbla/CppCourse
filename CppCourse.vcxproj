@@ -138,6 +138,7 @@
     <ClCompile Include="testsAlgo.cpp" />
     <ClCompile Include="testsAssociative.cpp" />
     <ClCompile Include="testsString.cpp" />
+    <ClCompile Include="testsTemplateFunction.cpp" />
     <ClCompile Include="TimeIt.cpp" />
     <ClCompile Include="VectorTestcpp.cpp" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="tests.h" />
     <ClInclude Include="testsAlgo.h" />
     <ClInclude Include="testsString.h" />
+    <ClInclude Include="testsTemplateFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

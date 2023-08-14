@@ -51,6 +51,9 @@
     <ClCompile Include="testsAssociative.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testsTemplateFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="hw.txt">
@@ -78,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="testsAssociative.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testsTemplateFunction.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
