@@ -48,9 +48,6 @@
     <ClCompile Include="testsAlgo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testsAssociative .cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testsAssociative.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

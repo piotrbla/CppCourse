@@ -133,7 +133,6 @@
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="median.cpp" />
     <ClCompile Include="PrecisionTest.cpp" />
-    <ClCompile Include="testsAssociative .cpp" />
     <ClCompile Include="tests.cpp" />
     <ClCompile Include="student_info.cpp" />
     <ClCompile Include="testsAlgo.cpp" />
